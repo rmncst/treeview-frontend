@@ -7,4 +7,22 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'treeview-frontend';
+  treeViewItems: TreeViewNode[] = [
+    { 
+      id: '1212', 
+      description: 'first level', 
+      open: false,
+      children: [
+        { id: '12312', description: 'second level', open: false }
+      ]
+    }
+  ]
+
+}
+
+class TreeViewNode {
+  id: string;
+  description: string;
+  open: boolean;
+  children?: TreeViewNode[];
 }

@@ -1,0 +1,6 @@
+<ul>
+    <li *ngFor='let node of nodes'>
+        {{node.description}}
+        <app-treeview-node [nodes]='node.children' *ngIf='node.children'></app-treeview-node>
+    </li>
+</ul>
