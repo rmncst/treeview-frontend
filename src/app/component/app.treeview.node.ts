@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Item } from '../model/Item';
+import { ItemsService } from '../service/http/item.service';
 
 @Component({
   selector: 'app-treeview-node',
@@ -7,14 +9,17 @@ import { Component, Input } from '@angular/core';
 })
 export class TreeViewNodeComponent 
 {
-    @Input() nodes: TreeViewNode[] = [];
+    @Input() nodes: Item[] = [];
+    @Output() itemRemoved = new EventEmitter();
+
+    constructor(private itemService: ItemsService) {
+
+    }
+
+    removeItem = (id: string) => {
+      this.itemService.delete(id)
+        .subscribe(res => this.itemRemoved.emit(res));
+    }
+
 
 }
-
-
-class TreeViewNode {
-    id: string;
-    description: string;
-    open: boolean;
-    children?: TreeViewNode[];
-  }

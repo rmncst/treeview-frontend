@@ -334,7 +334,7 @@
   <p>Here are some links to help you get started:</p>
 
   <div class="card-container">
-    <app-treeview-node [nodes]='treeViewItems'> </app-treeview-node>
+    <app-treeview-node [nodes]='treeViewItems' (itemRemoved)="getItems()"> </app-treeview-node>
   </div>
 
   <!-- Next Steps -->

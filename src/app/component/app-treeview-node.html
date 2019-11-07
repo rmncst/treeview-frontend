@@ -1,6 +1,7 @@
 <ul>
     <li *ngFor='let node of nodes'>
-        {{node.description}}
+        {{node.name}}
+        <button (click)="removeItem(node.id)" >Delete</button>
         <app-treeview-node [nodes]='node.children' *ngIf='node.children'></app-treeview-node>
     </li>
 </ul>

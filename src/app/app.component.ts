@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ItemsService } from './service/http/item.service';
+import { Item } from './model/Item';
 
 @Component({
   selector: 'app-root',
@@ -7,22 +9,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'treeview-frontend';
-  treeViewItems: TreeViewNode[] = [
-    { 
-      id: '1212', 
-      description: 'first level', 
-      open: false,
-      children: [
-        { id: '12312', description: 'second level', open: false }
-      ]
-    }
-  ]
+  treeViewItems: Item[] = [];
 
-}
+  constructor(private itemsService: ItemsService) { }
 
-class TreeViewNode {
-  id: string;
-  description: string;
-  open: boolean;
-  children?: TreeViewNode[];
+  ngOnInit() {
+    this.getItems()
+  }
+
+  getItems = () => {
+    this.itemsService.getAll()
+      .subscribe(data => {
+        this.treeViewItems = data;
+        console.log(data)
+      });
+  }
+
 }
