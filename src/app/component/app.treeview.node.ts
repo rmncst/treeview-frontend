@@ -11,15 +11,31 @@ export class TreeViewNodeComponent
 {
     @Input() nodes: Item[] = [];
     @Output() itemRemoved = new EventEmitter();
+    currentNodeEdit: string = null;
 
     constructor(private itemService: ItemsService) {
-
     }
 
     removeItem = (id: string) => {
       this.itemService.delete(id)
-        .subscribe(res => this.itemRemoved.emit(res));
+        .subscribe(res => this.emitItemRemovedEvent(res));
     }
 
+    emitItemRemovedEvent(target) {
+      this.itemRemoved.emit(target);
+    }
+
+    toggleEdit(id) {
+      this.currentNodeEdit = id ? id : null;
+    }
+
+    isEditMode(id) {
+      return this.currentNodeEdit == id;
+    }
+    
+    updateItem(id: string, name: string) {
+      console.log(id,name);
+      this.toggleEdit(null);
+    }
 
 }

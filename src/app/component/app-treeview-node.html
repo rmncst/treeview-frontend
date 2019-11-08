@@ -1,7 +1,16 @@
 <ul>
     <li *ngFor='let node of nodes'>
-        {{node.name}}
-        <button (click)="removeItem(node.id)" >Delete</button>
-        <app-treeview-node [nodes]='node.children' *ngIf='node.children'></app-treeview-node>
+        <label *ngIf="!isEditMode(node.id)">{{node.name}}</label>
+        <input *ngIf="isEditMode(node.id)" #inputNode type="text" [value]="node.name" />
+
+        <div *ngIf="!isEditMode(node.id)">
+            <button (click)="removeItem(node.id)" >Delete</button>
+            <button [id]="node.id" (click)="toggleEdit(node.id)" >Edit</button>
+        </div>
+        <div *ngIf="isEditMode(node.id)">
+            <button (click)="updateItem(node.id, inputNode.value)" >Save</button>
+            <button (click)="toggleEdit()" >Cancel</button>
+        </div>
+        <app-treeview-node [nodes]='node.children' *ngIf='node.children' (itemRemoved)="emitItemRemovedEvent($target)"></app-treeview-node>
     </li>
 </ul>

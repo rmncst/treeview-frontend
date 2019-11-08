@@ -17,6 +17,11 @@ export class AppComponent {
     this.getItems()
   }
 
+
+  renderItems() {
+    return this.treeViewItems;
+  }
+
   getItems = () => {
     this.itemsService.getAll()
       .subscribe(data => {
